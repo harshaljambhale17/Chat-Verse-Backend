@@ -1,31 +1,29 @@
 package com.personalchat.backend.controller;
 
-import com.personalchat.backend.dto.LoginRequest;
-import com.personalchat.backend.dto.RegisterRequest;
-import com.personalchat.backend.entity.User;
-import com.personalchat.backend.entity.UserStatus;
-import com.personalchat.backend.repositories.UserRepo;
-import com.personalchat.backend.service.UserServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
+import com.personalchat.backend.dto.LoginRequest;
+import com.personalchat.backend.dto.RegisterRequest;
+import com.personalchat.backend.entity.User;
+import com.personalchat.backend.repositories.UserRepo;
+import com.personalchat.backend.service.UserServiceImpl;
 
-import static org.springframework.web.servlet.function.ServerResponse.status;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "https://chat-verse-frontend-seven.vercel.app", allowCredentials = "true")
 @RestController
 public class HomeController {
 
