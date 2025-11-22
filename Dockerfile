@@ -1,24 +1,34 @@
-# Use Eclipse Temurin 17 as base image (official OpenJDK distribution)
-FROM eclipse-temurin:17-jdk-jammy
+# Multi-stage build for Spring Boot application
 
-# Set working directory
+# Stage 1: Build the application
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
+
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+# Copy the pom.xml and download dependencies
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Download dependencies
-RUN ./mvnw dependency:go-offline
-
-# Copy source code
+# Copy the source code
 COPY src ./src
 
-# Build the application
-RUN ./mvnw clean package -DskipTests
+# Build the application (skip tests for faster builds)
+RUN mvn clean package -DskipTests
 
-# Expose port (Render will provide PORT environment variable)
+# Stage 2: Run the application
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+# Copy the jar from build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the port (Render will use PORT environment variable)
 EXPOSE 8080
 
+# Set environment variables
+ENV SPRING_PROFILES_ACTIVE=prod
+ENV SERVER_PORT=${PORT:-8080}
+
 # Run the application
-CMD ["java", "-jar", "target/Personal-Chat-Backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "-Dserver.port=${SERVER_PORT}", "app.jar"]

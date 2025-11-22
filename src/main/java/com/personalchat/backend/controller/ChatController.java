@@ -28,7 +28,6 @@ import com.personalchat.backend.entity.Message;
 import com.personalchat.backend.repositories.MessageRepo;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class ChatController {
 
     @Autowired

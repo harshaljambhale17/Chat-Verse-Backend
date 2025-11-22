@@ -25,12 +25,13 @@ import java.util.Optional;
 
 import static org.springframework.web.servlet.function.ServerResponse.status;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 public class HomeController {
 
     @Autowired
     private UserRepo userRepo;
+
 
     @Autowired
     private UserServiceImpl userService;
