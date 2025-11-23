@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/saveUser","/home","/login/**", "/profile/**").permitAll()
+                        .requestMatchers("/saveUser","/home","/login/**","/register", "/profile/**").permitAll()
                         // Allow websocket handshake and SockJS endpoints without HTTP Basic challenge
                         .requestMatchers("/chat", "/chat/**").permitAll()
                         // Allow unauthenticated GET to search endpoints so React can look up users

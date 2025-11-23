@@ -18,7 +18,7 @@ public class CrosConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
 //                        .allowedHeaders("Authorization", "Content-Type", "Accept")
-//                        .exposedHeaders("Authorization")
+                       .exposedHeaders("Authorization")
                         .allowCredentials(true);
             }
         };
